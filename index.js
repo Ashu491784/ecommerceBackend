@@ -3,7 +3,8 @@ const connectDB = require("./config/db");
 const cors = require("cors");
 require("dotenv").config();
 const userRoute = require('./routers/userRout');
-
+const itemRoute = require('./routers/ItemRoute');
+const path = require("path");
 
 
 const app = express();
@@ -16,9 +17,14 @@ app.listen(
 );
 
 app.use(cors({
-    origin: 'http://localhost:3001',
+    origin: 'http://localhost:3000',
     credentials: true
 }));
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
 app.use('/api/users', userRoute);
+app.use('/api/item', itemRoute);
+
 
